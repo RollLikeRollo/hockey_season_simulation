@@ -1,4 +1,4 @@
-export const season = {
+export const SEASON = {
     playoffs: true,
     playoffs_best_of: 7,
     teams: [

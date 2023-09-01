@@ -1,4 +1,4 @@
-export const teams = [
+export const TEAMS = [
     {
         country: "Czechia",
         teams: [

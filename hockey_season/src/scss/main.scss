@@ -1,5 +1,5 @@
-$primary-color: rgb(0, 45, 82);
-$secondary-color: rgb(139, 203, 255);
+$primary-color: rgb(0, 74, 134);
+$secondary-color: rgb(255, 255, 255);
 
 * {
     padding: 0;
@@ -21,7 +21,6 @@ body {
 #root {
     display: flex;
     height: 100%;
-    align-items: center;
 }
 
 .setting_panel {
@@ -54,6 +53,7 @@ body {
     div {
       margin: 5px;
     }
+    
     .input {
       background: transparent;
       border-bottom: 1px solid #2f3336;
@@ -62,14 +62,16 @@ body {
       padding: 10px 15px;
       margin-bottom: 10px;
       outline: none;
-      &:focus {
-        border-color: #2f3336;
-      }
+
     }
     select {
       margin: 10px 0;
       width: 100%;
       display: block;
+      color: white
+      label{
+        color: white;
+      };
     }
     .btn {
       width: 100%;
@@ -89,7 +91,7 @@ body {
     }
 
     .setting_subsection{
-        border-radius: 1em;
+        border-radius: 5px;
         border-color: $secondary-color;
         border-width: 1px;
         border-style: solid;
@@ -99,32 +101,62 @@ body {
 
     .team_list_ul{
         list-style-type: none;
-        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
 
         li{
-            margin-bottom: 0.5em;
+            // margin-bottom: 0.5em;
             border-radius: 5px;
             border-color: $secondary-color;
             border-width: 1px;
             border-style: solid;
+            display: flex;
+            width: 30%;
+            margin: 0.2em;
             
             .team_list_item{
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 0.5em;
-                cursor: pointer;
-                transition: all ease-in-out 0.1s;
-                &:hover {
-                    background-color: $secondary-color;
-                    color: $primary-color;
-                }
+              margin: 0px;
+              flex: 1;
+              transition: all ease-in-out 0.1s;
+              &:hover {
+                  background-color: $secondary-color;
+                  color: white;
+              }
+              input{
+                width: 100%;
+              }
+              label{
+                width: 100%;
+                text-align: center;
+              }
             }
         }
+      }
+    .simulate_btn{
+      width: 100%;
+      height: 100%;
+      padding: 1em;
+      border-radius: 5px;
+      background-color: rgb(29, 155, 240);
+      color: white;
+      font-size: 20px;
+      transition: ease-in 0.3s;
+      &:hover {
+        background-color: white;
+        color: rgb(29, 155, 240);
+      }
+      &:active{
+        background-color: rgb(29, 155, 240);
+        color: white;
+        transition: ease-in 0.2s;
+      }
     }
   }
 
 .simulation_panel {
   padding: 0 50px;
   flex: 3;
+
+  
 }
