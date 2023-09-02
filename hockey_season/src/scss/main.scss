@@ -1,5 +1,7 @@
-$primary-color: rgb(0, 74, 134);
+$primary-color: rgb(132, 200, 255);
 $secondary-color: rgb(255, 255, 255);
+$dark-primary-color: rgb(0, 66, 121);
+$dark-secondary-color: rgb(56, 56, 56);
 
 * {
     padding: 0;
@@ -15,7 +17,20 @@ $secondary-color: rgb(255, 255, 255);
 html,
 body {
     height: 100%;
+    color: $primary-color;
     background-color: $secondary-color;
+}
+
+// @media (prefers-color-scheme: dark) {
+//   body {
+//     color: $dark-primary-color;
+//     background-color: $dark-secondary-color;
+//   }
+// }
+
+body.dark {
+  color: $dark-primary-color;
+  background-color: $dark-secondary-color;
 }
 
 #root {
@@ -29,14 +44,17 @@ body {
     border-right: 1px solid #2f3336;
     height: 100%;
     padding: 20px;
-    background-color: $primary-color;
     min-width: 30%;
-
+    background-color: $primary-color;
     h1 {
         font-size: 30px;
         font-weight: normal;
         margin-bottom: 20px;
         text-align: center;
+    }
+
+    .react-toggle > * {
+      margin: 0;
     }
   
     h3 {
@@ -159,4 +177,19 @@ body {
   flex: 3;
 
   
+}
+
+.dark_toggle{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+
+  .react-toggle-track > * {
+    top : 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: 0px;
+  }
 }
