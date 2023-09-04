@@ -1,7 +1,9 @@
-$primary-color: rgb(132, 200, 255);
+$primary-color: rgb(172, 218, 255);
 $secondary-color: rgb(255, 255, 255);
-$dark-primary-color: rgb(0, 66, 121);
+$text-color: rgb(0, 0, 0);
+$dark-primary-color: rgb(1, 37, 66);
 $dark-secondary-color: rgb(56, 56, 56);
+$dark-text-color: rgb(255, 255, 255);
 
 * {
     padding: 0;
@@ -17,7 +19,7 @@ $dark-secondary-color: rgb(56, 56, 56);
 html,
 body {
     height: 100%;
-    color: $primary-color;
+    color: $text-color;
     background-color: $secondary-color;
 }
 
@@ -29,7 +31,7 @@ body {
 // }
 
 body.dark {
-  color: $dark-primary-color;
+  color: $dark-text-color;
   background-color: $dark-secondary-color;
 }
 
@@ -40,11 +42,11 @@ body.dark {
 
 .setting_panel {
     flex: 1;
-    color: white;
     border-right: 1px solid #2f3336;
     height: 100%;
     padding: 20px;
     min-width: 30%;
+    color: $text-color;
     background-color: $primary-color;
     h1 {
         font-size: 30px;
@@ -66,7 +68,7 @@ body.dark {
     }
     label {
       display: block;
-      font-weight: 100;
+      font-weight: 300;
     }
     div {
       margin: 5px;
@@ -98,7 +100,7 @@ body.dark {
       background-color: rgb(29, 155, 240);
       color: white;
       font-size: 15px;
-      transition: all ease-in-out 0.3s;
+      transition: all ease-in-out 0.1s;
       &:hover {
         background-color: white;
         color: rgb(29, 155, 240);
@@ -172,6 +174,13 @@ body.dark {
     }
   }
 
+body.dark{
+  .setting_panel{
+    color: $dark-text-color;
+    background-color: $dark-primary-color;
+  }
+}
+
 .simulation_panel {
   padding: 0 50px;
   flex: 3;
@@ -179,17 +188,3 @@ body.dark {
   
 }
 
-.dark_toggle{
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 100;
-
-  .react-toggle-track > * {
-    top : 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    margin: 0px;
-  }
-}
