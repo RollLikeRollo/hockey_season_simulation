@@ -4,6 +4,7 @@ $text-color: rgb(0, 0, 0);
 $dark-primary-color: rgb(1, 37, 66);
 $dark-secondary-color: rgb(56, 56, 56);
 $dark-text-color: rgb(255, 255, 255);
+$btn-color: rgb(29, 155, 240);
 
 * {
     padding: 0;
@@ -97,13 +98,14 @@ body.dark {
       width: 100%;
       padding: 10px 10px;
       border-radius: 5px;
-      background-color: rgb(29, 155, 240);
+      background-color: $btn-color;
       color: white;
       font-size: 15px;
       transition: all ease-in-out 0.1s;
+      cursor: auto;
       &:hover {
         background-color: white;
-        color: rgb(29, 155, 240);
+        color: $btn-color;
       }
     }
     .download-url{
@@ -117,40 +119,70 @@ body.dark {
         border-style: solid;
         padding: 1em;
         margin-bottom: 1em;
+
+        .season_setting{
+          padding-bottom: 5px;
+          border-radius: 5px;
+          font-size: large;
+
+          input {
+            border: 1px solid $secondary-color;
+            border-radius: 5px;
+            padding: 0.5em;
+            margin-bottom: 0.5em;
+          }
+
+          input:focus{
+            border: 1px solid $btn-color;
+          }
+
+          label{
+            border-bottom: 1px solid white;
+          }
+        }
+
+      .season_subsection{
+        color: black;
+      }
     }
 
     .team_list_ul{
-        list-style-type: none;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+      list-style-type: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5em;
 
-        li{
-            // margin-bottom: 0.5em;
-            border-radius: 5px;
-            border-color: $secondary-color;
-            border-width: 1px;
-            border-style: solid;
-            display: flex;
-            width: 30%;
-            margin: 0.2em;
-            
-            .team_list_item{
-              margin: 0px;
-              flex: 1;
-              transition: all ease-in-out 0.1s;
-              &:hover {
-                  background-color: $secondary-color;
-                  color: white;
-              }
-              input{
-                width: 100%;
-              }
-              label{
-                width: 100%;
-                text-align: center;
-              }
+      li{
+          // margin-bottom: 0.5em;
+          border-radius: 5px;
+          border-color: $secondary-color;
+          border-width: 1px;
+          border-style: solid;
+          display: flex;
+          width: 30%;
+          margin: 0;
+          
+          .team_list_item{
+            margin: 0px;
+            padding: 0.2em;
+            flex: 1;
+            transition: all ease-in-out 0.1s;
+            &:hover {
+                background-color: $secondary-color;
+                color: white;
             }
+            input{
+              width: 100%;
+              padding: 0px;
+              
+            }
+            label{
+              width: 100%;
+              text-align: center;
+              padding: 0px;
+            }
+          }
         }
       }
     .simulate_btn{
@@ -159,9 +191,9 @@ body.dark {
       padding: 1em;
       border-radius: 5px;
       background-color: rgb(29, 155, 240);
-      color: white;
       font-size: 20px;
       transition: ease-in 0.3s;
+      cursor: pointer;
       &:hover {
         background-color: white;
         color: rgb(29, 155, 240);
@@ -169,6 +201,12 @@ body.dark {
       &:active{
         background-color: rgb(29, 155, 240);
         color: white;
+        transition: ease-in 0.2s;
+      }
+      &:disabled{
+        background-color: rgb(106, 166, 206);
+        color: white;
+        cursor: not-allowed;
         transition: ease-in 0.2s;
       }
     }
@@ -184,7 +222,7 @@ body.dark{
 .simulation_panel {
   padding: 0 50px;
   flex: 3;
-
+  overflow: auto;
   
 }
 
