@@ -4,7 +4,8 @@ $text-color: rgb(0, 0, 0);
 $dark-primary-color: rgb(1, 37, 66);
 $dark-secondary-color: rgb(56, 56, 56);
 $dark-text-color: rgb(255, 255, 255);
-$btn-color: rgb(29, 155, 240);
+$btn-color: rgb(58, 176, 255);
+$border-color: rgb(156, 156, 156);
 
 * {
     padding: 0;
@@ -23,13 +24,6 @@ body {
     color: $text-color;
     background-color: $secondary-color;
 }
-
-// @media (prefers-color-scheme: dark) {
-//   body {
-//     color: $dark-primary-color;
-//     background-color: $dark-secondary-color;
-//   }
-// }
 
 body.dark {
   color: $dark-text-color;
@@ -212,17 +206,92 @@ body.dark {
     }
   }
 
+  
+.simulation_panel {
+  padding: 50px 50px;
+  flex: 3;
+  overflow: auto;
+
+  .winner{
+    color: $btn-color;
+    margin: 1em;
+    text-align: center;
+  }
+  
+  .games_panel{
+    margin-bottom: 0.5em;
+    
+    .round_panel{
+      margin: 0.5em; 
+      
+      h3{
+        text-align: left;
+        margin-bottom: 1em;
+        border-top: 1px solid $secondary-color;
+      }
+    }
+
+    .game_field{
+      border : 1px solid $border-color;
+      border-radius: 20px;
+      width: 80%;
+      max-width: 600px;
+      margin: auto;
+      margin-bottom: 0.5em;
+      display: grid;
+      grid-template-columns: 1fr 0.3fr 0.1fr 0.3fr 1fr;
+      position: relative;
+      background-color: white;
+      
+      span{
+        text-align: center;
+        align-self: center; 
+        height: 100%;
+        padding: 0.5em;
+        color: $text-color;
+        
+        &.home.win{
+          background: linear-gradient(to right, $btn-color, 90%, white), linear-gradient(to right, $btn-color, 90%, white);
+          background-clip: content-box, border-box;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
+        }
+        &.away.win{
+          background: linear-gradient(to left, $btn-color, 90%, white), linear-gradient(to left, $btn-color, 90%, white);
+          background-clip: content-box, border-box;
+          border-top-right-radius: 20px;
+          border-bottom-right-radius: 20px;
+        }
+        
+      }
+      
+      .ot{
+        position: absolute;
+        top: 0;
+        right: 50%;
+        transform: translate(50%, 0%);
+        text-align: center;
+        background: linear-gradient(90deg, rgba(2,0,36,0) 0%, $btn-color 50%, rgba(0,212,255,0) 100%);
+      }
+    }
+
+  }
+  .reg_table{
+    margin-bottom: 2em;
+    width: 100%;
+    table{
+      margin: auto;
+    }
+  }
+}
+
 body.dark{
   .setting_panel{
     color: $dark-text-color;
     background-color: $dark-primary-color;
   }
+  .simulation_panel{
+    color: $dark-text-color;
+    background-color: $dark-secondary-color;
+  }
 }
-
-.simulation_panel {
-  padding: 0 50px;
-  flex: 3;
-  overflow: auto;
-  
-}
-

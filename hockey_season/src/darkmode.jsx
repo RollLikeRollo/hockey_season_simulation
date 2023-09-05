@@ -22,7 +22,7 @@ const DarkModeToggle = () => {
       else { 
         document.body.classList.remove('dark')
       }
-     }, [isDark]);
+    }, [isDark]);
   
     return (
       <Toggle

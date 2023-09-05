@@ -1,5 +1,6 @@
 import React from "react";
 import { useSortBy, useTable } from "react-table";
+import TableCell from '@mui/material/TableCell'
 
 export default function Table({ columns, data }) {
 
@@ -12,6 +13,14 @@ export default function Table({ columns, data }) {
     } = useTable({
         columns,
         data,
+        initialState: {
+            sortBy: [
+                {
+                    id: "pts",
+                    desc: true
+                }
+            ]
+        }
     },
     useSortBy
     );
@@ -33,6 +42,9 @@ export default function Table({ columns, data }) {
                         }
                     >
                         {column.render("Header")}
+                        <span>
+                            {column.isSorted ? (column.isSortedDesc ? " ▽" : " △") : " ⇳"}
+                        </span>
                     </th>
                     ))}
                 </tr>
@@ -44,7 +56,7 @@ export default function Table({ columns, data }) {
                 return (
                     <tr {...row.getRowProps()}>
                     {row.cells.map(cell => {
-                        return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                        return <TableCell {...cell.getCellProps()}>{cell.render("Cell")}</TableCell>;
                     })}
                     </tr>
                 );

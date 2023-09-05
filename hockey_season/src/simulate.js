@@ -10,8 +10,8 @@ import { TEAMS } from "../data/teams.js";
  * Description placeholder
  * @date 9/1/2023 - 2:26:16 PM
  *
- * @param {*} settings
- * @returns {number}
+ * @param {*} settings - Settings object got from the app
+ * @returns {Object} - Object containing the simulated season
  */
 export const Simulate = (settings) => {
 
@@ -54,7 +54,6 @@ export const Simulate = (settings) => {
 
 
     console.log("Season simulation finished.");
-    console.log(season);
     return season;
 }
 
@@ -62,7 +61,6 @@ function SimulatePlayoffs(season, no_teams, best_of) {
     console.log("Simulating playoffs...");
 
     var must_win = Math.floor(best_of / 2) + 1;
-    console.log("Must win: " + must_win);
 
     var teams = season.standings.slice(0, no_teams);
     teams = teams.map(team => team.team);
@@ -77,10 +75,7 @@ function SimulatePlayoffs(season, no_teams, best_of) {
             matches: []
         });
 
-        console.log("Round: " + i);
-
         var round_winners = [];
-
         var no_teams_round = teams.length;
 
         // for a round
@@ -258,11 +253,11 @@ function SimulateRegularSeason(season, no_teams, countries, matches_agnst_same) 
     for (const [key, value] of Object.entries(standings)) {
         standings_array.push(value);
     }
-    standings_array.sort((a, b) => (a.pts < b.pts) ? 1 : -1);
     const i = standings_array.findIndex(team => team.team === "EVENFILLER");
     if (i > -1) {
         standings_array.splice(i, 1);
     }
+    standings_array.sort((a, b) => (a.pts < b.pts) ? 1 : -1);
 
     season.rounds = rounds;
     season.standings = standings_array;

@@ -5,12 +5,9 @@ import { TEAMS } from '../data/teams.js'
 import { SEASON } from '../data/season.js'
 import { Simulate } from './simulate.js'
 import DarkModeToggle from './darkmode.jsx'
-import Table from './table.jsx'
+import { RegularPanel } from './regular_season.jsx'
+import { Playoffs, PlayoffRoundName, PlayoffPanel } from './playoffs.jsx'
 import './scss/main.scss'
-
-
-
-
 
 const TeamsPanel = ({cls, teams, saveCountriesState}) => {
   return (
@@ -73,6 +70,26 @@ const SeasonPanel = ({cls, settingState,  saveSettingState }) => {
     saveSettingState(id, value)
   }
 
+  const [bestof, setBestOf] = useState(settingState.bestof);
+  const prevBestOf = useRef(settingState.bestof);
+  useEffect(() => {
+    prevBestOf.current = bestof;
+  }, [bestof]);
+
+  const handleBestOf = (id, value) => {
+
+    if (value % 2 == 0) {
+      if(value >= prevBestOf.current){
+        value = Number(value) + 1
+      }else{
+        value = Number(value) - 1
+      }
+    }
+    setBestOf(value)
+
+    saveSettingState(id, value)
+  }
+
   return (
     <div className={cls}>
       <h2>Season</h2>
@@ -96,8 +113,8 @@ const SeasonPanel = ({cls, settingState,  saveSettingState }) => {
           name="bestof"
           min="1"
           max="7"
-          defaultValue={settingState.bestof}
-          onChange={(e) => saveSettingState(e.target.name, e.target.value)}
+          value={bestof}
+          onChange={(e) => handleBestOf(e.target.name, e.target.value)}
         />
         <label htmlFor="bestof-input">Playoff rounds - Best of</label>
       </div>
@@ -146,10 +163,6 @@ const SeasonPanel = ({cls, settingState,  saveSettingState }) => {
 
 const SimulateButton = ({cls, simulate, settingState}) => { 
 
-  useEffect(() => {
-    console.log("kkdawflk")
-  }, [settingState])
-
   return (
     <div>
       {/* <button onClick={() => SimulateButtonAction()}>Simulate</button> */}
@@ -179,155 +192,16 @@ const SettingPanel = ({ teams, season, settingState, saveCountriesState, saveSet
   )
 }
 
-const GameField = ({match}) => { 
-  return (
-    <div>
-      <span>{match.home}</span>
-      <span>{match.home_score}</span>
-      <span>:</span>
-      <span>{match.away_score}</span>
-      <span>{match.away}</span>
-      {match.over_time ? <span>OT</span> : <span></span>}
-      {match.shootout ? <span>SO</span> : <span></span>}
-    </div>
-  )
-}
 
-const PlayoffRoundName = ({rounds, index}) => {
-
-  let len = rounds.length
-  let round_name = ""
-  if (len == index +1) {
-    round_name = "Finals"
-  }else if (len == index +2) {
-    round_name = "Semi-finals"
-  }
-  else if (len == index +3) {
-    round_name = "Quarter-finals"
-  }
-  else if (len == index +4) {
-    round_name = "Round of 16"
-  }
-  else if (len == index +5) {
-    round_name = "Round of 32"
-  }
-
-  return (
-    <span>{round_name}</span>
-  )
-  
-}
-
-const GamesPanel = ({rounds}) => { 
-
-  return (
-    <div>
-      <h2>Games</h2>
-      {rounds.map((round, index) => {
-        return (
-          <>
-          <h3>Round {index+1}:</h3>
-            {round.matches.map((match, index) => {
-              return (
-                <GameField match={match}/>
-              )
-            })}
-          </>
-        )
-      })}
-    </div>
-  )
-}
 
 const WinnerPanel = ({winner}) => { 
   if (winner) {
     return (
-      <div>
-        <h2>{winner}</h2>
+      <div className="winner">
+        <h2>🏆 {winner} 🏆</h2>
         <h3>Winner</h3>
       </div>
     )
-  }
-}
-
-const PlayoffPanel = ({results}) => { 
-  if (results) {
-    return (
-      <div>
-        <h2>Playoffs</h2>
-        {results.map((round, index) => {
-          return (
-            <>
-            <h3><PlayoffRoundName rounds={results} index={index}/></h3>
-              {round.matches.map((match, index) => {
-                return (
-                  <GameField match={match}/>
-                )
-              })}
-            </>
-          )
-        })}
-      </div>
-    )
-  }
-}
-
-const RegularTable = ({sim_res}) => {
-
-  const cols = React.useMemo(
-    () => [
-      {
-        Header: 'Team',
-        accessor: "team",
-      },
-      {
-        Header: 'GP',
-        accessor: "games",
-      },
-      {
-        Header: 'W',
-        accessor: "w",
-      },
-      {
-        Header: 'L',
-        accessor: "l",
-      },
-      {
-        Header: 'OTW',
-        accessor: "otw",
-      },
-      {
-        Header: 'OTL',
-        accessor: "otl",
-      },
-      {
-        Header: 'PTS',
-        accessor: "pts",
-      }
-    ],
-    []
-  );
-
-  return(
-    <Table columns={cols} data={sim_res.standings} />
-  )
-
-}
-
-const RegularPanel = ({sim_res}) => { 
-
-  if (sim_res) {
-    return (
-      <div>
-        <RegularTable sim_res={sim_res}/>
-        <GamesPanel rounds={sim_res.rounds} />
-      </div>
-    );
-  } else {
-    return (
-      <div>
-      </div>
-    );
   }
 }
 
@@ -356,7 +230,6 @@ function App() {
       ...settingState,
       countries: new_settingState.countries
     })
-    console.log(settingState)
   }
 
   const setSettingStateHandler = (id, value) => { 
@@ -424,7 +297,7 @@ function App() {
         <WinnerPanel winner={sim_result ? sim_result.winner : null } />
         <PlayoffPanel results={sim_result ? sim_result.playoffs : null} />
         <RegularPanel
-          sim_res={sim_result}
+          sim_res={sim_result ? sim_result : null}
         />
       </div>
       
